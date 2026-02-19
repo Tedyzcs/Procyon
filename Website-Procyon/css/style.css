@@ -1,0 +1,776 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* STICKY NAVBAR */
+.navbar {
+    background: #007bff; 
+    color: white; 
+    padding: 15px 0;
+    position: fixed; /* Ubah dari sticky ke fixed agar lebih pakem */
+    top: 0; 
+    width: 100%;
+    z-index: 10000; /* Angka besar agar tidak tertutup gambar hero */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    pointer-events: auto !important;
+}
+/* Agar navbar laptop benar-benar di pojok */
+.navbar .container {
+    max-width: 100%; /* Ubah dari 1100px ke 100% jika ingin mepet pojok layar */
+    padding: 0 40px; /* Beri sedikit napas di kiri dan kanan */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li {
+    margin-left: 30px; /* Jarak antar menu sedikit diperlebar */
+}
+.navbar a { color: white; text-decoration: none; font-weight: 600; }
+
+.btn-login {
+    background-color: #ffc107; /* Kuning */
+    color: #333 !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-logout {
+    background-color: #dc3545; /* Merah */
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    .btn-login, .btn-logout {
+        margin-top: 10px;
+        display: inline-block;
+    }
+}
+
+/* HERO */
+.hero {
+    background: url('../images/Procyon.jpg') no-repeat center center;
+    background-size: cover; /* Ini supaya gambar tidak kepotong, tapi memenuhi layar */
+    height: 65vh; /* Buat tinggi seukuran layar HP/Laptop agar terlihat megah */
+    min-height: 400px; /* Minimal tinggi agar tidak terlalu gepeng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* --- PERBAIKAN TRANSPARANSI (Overlay) --- */
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.2) !important; /* Angka 0.45 ini bikin transparansi lebih terang/pas */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* --- KOTAK TEKS (Hero Text Box) --- */
+.hero-text-box {
+    background: transparent; /* Hitam transparan tipis saja */
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    max-width: 600px;
+    margin-left: 0 auto; /* Kasih jarak dari pinggir kiri */
+}
+
+/* Update Logo */
+.logo {
+    font-size: 24px; /* Ukuran lebih besar */
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+/* LAYANAN */
+.layanan {
+    padding: 60px 0;
+    background: #fff;
+}
+.section-title { text-align: center; color: #007bff; margin-bottom: 30px; }
+.layanan-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Kolom */
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.layanan-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid #007bff;
+    background: #fff;
+    transition: 0.3s;
+}
+.icon-box {
+    background: #007bff;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.layanan-item p {
+    padding-left: 20px;
+    color: #007bff;
+    font-weight: 600;
+}
+
+/* CTA SECTION (BIRU BESAR) */
+.cta-section {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 70px 0;
+}
+.cta-section h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+.cta-section p {
+    margin-bottom: 30px;
+    font-size: 18px;
+    opacity: 0.9;
+}
+.btn-mulai {
+    background-color: #ffc107; /* Warna Kuning */
+    color: #333;
+    text-decoration: none;
+    padding: 15px 40px;
+    font-weight: bold;
+    border-radius: 4px;
+    display: inline-block;
+    transition: 0.3s;
+}
+.btn-mulai:hover {
+    background-color: #e5ac00;
+    transform: scale(1.05);
+}
+
+/* Responsif Mobile */
+@media (max-width: 768px) {
+    .layanan-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.testimonials { padding: 60px 0; text-align: center; }
+/* Container Utama */
+/* Container utama */
+.testimonial-wrapper {
+    position: relative;
+    max-width: 800px; /* Sesuaikan lebar kotak abu-abu */
+    margin: 0 auto;
+    background-color: #949494;
+    border-radius: 10px;
+    overflow: hidden; /* Supaya slide lain tersembunyi */
+}
+
+/* Jendela tampil */
+.testimonial-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.testimonial-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+.testimonial-slide {
+    flex: 0 0 100% !important; /* Kunci agar satu slide pas 1 layar kotak */
+    min-width: 100% !important;
+    box-sizing: border-box;
+    padding: 40px 60px;
+    text-align: center; /* Teks testimonial boleh di tengah */
+}
+
+.testimonial-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 40px 60px;
+    color: white;
+}
+/* Tombol Panah (Sembunyi default) */
+.slide-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    padding: 20px 15px;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+}
+
+/* Muncul saat Hover di kotak abu-abu */
+.testimonial-wrapper:hover .slide-arrow {
+    opacity: 1;
+    visibility: visible;
+}
+
+.prev-btn { left: 0; }
+.next-btn { right: 0; }
+
+.step-line.active { background: #007bff; width: 45px; }
+
+/* Posisi spesifik panah */
+.prev-btn { left: 0; border-radius: 0 5px 5px 0; }
+.next-btn { right: 0; border-radius: 5px 0 0 5px; }
+
+.slide-arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* FOOTER */
+.footer { background: #007bff; color: white; padding: 50px 0; margin-top: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 30px; }
+.footer-title { color: #ffc107; margin-bottom: 15px; }
+
+
+
+/* HALAMAN TENTANG KAMI */
+/* GLOBAL UTILITIES */
+.blue-title { color: #007bff; font-size: 28px; font-weight: bold; margin-bottom: 20px; }
+.blue-title.centered { text-align: center; margin-bottom: 30px; }
+.yellow-subtitle { color: #ffc107; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+
+/* ABOUT INTRO */
+.grid-about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 60px 0; }
+.about-image img { width: 100%; border-radius: 4px; }
+.btn-yellow { 
+    background: #ffc107; color: #333; padding: 12px 25px; 
+    text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; 
+}
+
+/* VALUES SECTION */
+.our-values { padding: 1px 0; text-align: center; }
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.value-icon { width: 60px; margin-bottom: 20px; }
+
+/* TEAM SECTION (6 CARDS) */
+.our-team { padding: 60px 0; background: #fff; }
+.team-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); /* 3 kolom per baris */
+    gap: 25px; 
+}
+.team-card { 
+    border: 1px solid #007bff; 
+    padding: 15px; 
+    text-align: center; 
+}
+.team-card img { 
+    width: 100%; 
+    height: 250px; 
+    object-fit: cover; 
+    margin-bottom: 15px; 
+}
+
+
+/* Overlay Hitam Transparan agar teks putih mudah dibaca */
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.6); /* Warna hitam transparan */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Kotak Hitam di belakang teks (seperti di gambar) */
+/* 1. Perbaikan Background Tulisan (Agar tidak hitam pekat) */
+.hero-text-box {
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Gunakan RGBA untuk transparansi */
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+/* 2. Menghilangkan Jarak Putih di Kanan (Mencegah horizontal scroll) */
+html, body {
+    /* Hapus overflow-x: hidden dari sini agar sticky navbar jalan */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* TAMBAHKAN INI SEBAGAI PENGGANTI */
+main, section, .hero, .footer {
+    overflow-x: hidden;
+}
+
+/* 3. Mengubah Warna Telepon menjadi Putih */
+.mobile-controls a.phone-icon {
+    color: #ffffff !important; 
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* 4. Perbaikan Navbar Mobile */
+@media (max-width: 768px) {
+    /* 1. Nav Menu Full Lebar & Warna Biru */
+    .nav-menu {
+        position: fixed; 
+        top: 60px;       /* Sesuaikan dengan tinggi header biru kamu */
+        left: 0;         /* Full dari kiri */
+        width: 100%;     /* Full sampai kanan */
+        
+        /* 2. Ukuran Tidak Terlalu Gede (Sekitar 30% layar) */
+        height: auto;
+        max-height: 35vh; 
+        overflow-y: auto; /* Agar bisa di-scroll jika menu banyak */
+        gap: 10px; 
+        padding: 30px 0;
+        
+        /* 3. Tampilan Visual */
+        background-color: #007bff !important; /* Warna biru sesuai header */
+        border-radius: 0 0 20px 20px;         /* Melengkung hanya di bawah */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+        padding: 15px 0;
+        display: flex;
+        flex-direction: column;
+        
+        /* 4. Efek Muncul dari Atas */
+        z-index: 1001 !important;
+        transform: translateY(-150%); 
+        transition: transform 0.4s ease-in-out;
+        visibility: hidden;
+    }
+
+    .nav-menu .login-btn, 
+    .nav-menu a:last-child {
+        /* Kuncinya di sini: Padding atas-bawah 12px, samping 40px */
+        padding: 12px 40px !important; 
+    }
+
+    /* Saat menu aktif */
+    .nav-menu.active {
+        transform: translateY(0); 
+        visibility: visible;
+    }
+    /* 5. Pengaturan Link Menu di Dalam */
+    .nav-menu a {
+        color: white !important; /* Tulisan putih agar kontras dengan biru */
+        font-weight: 500;
+        text-align: center;      /* Tulisan di tengah */
+        padding: 12px 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Garis pembatas tipis */
+    }
+
+    
+
+    /* Hilangkan garis bawah pada menu terakhir */
+    .nav-menu a:last-child {
+        border-bottom: none;
+    }
+}
+
+/* SECTION LAYANAN UNGGULAN */
+.layanan-unggulan {
+    padding-top: 50px;    /* Tambahkan jarak ini agar tidak nempel ke atas */
+    padding-bottom: 30px; /* Jarak bawah agar seimbang */
+    background-color: #fff; 
+}
+
+.btn-service {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #ffc107;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-top: auto;       /* Memaksa tombol untuk selalu menempel di bagian paling bawah kartu */
+}
+
+.btn-service:hover {
+    background-color: #e5ac00;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Jika kamu ingin mengatur jarak khusus hanya untuk judulnya saja */
+.layanan-unggulan .section-title, 
+.layanan-unggulan .blue-title {
+    margin-top: 20px;
+    margin-bottom: 30px; /* Jarak judul ke kartu layanan di bawahnya */
+}
+
+/* Hero Section untuk Layanan atau Tentang Kami */
+.unggulan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 40px 0;
+}
+.unggulan-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Mengetengahkan ikon dan tombol */
+    text-align: center;     /* Mengetengahkan Judul (h3) dan Deskripsi (p) */
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 100%;           
+}
+
+.unggulan-card h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    width: 100%;            /* Memastikan area teks mencakup seluruh lebar kartu */
+}
+
+.unggulan-card p {
+    flex-grow: 1;
+    margin-bottom: 20px;
+    line-height: 1.5;       /* Biar teks lebih enak dibaca */
+}
+
+.unggulan-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.icon-header {
+    background: #007bff;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    margin: 0 auto 20px;
+    border-radius: 4px;
+}
+
+/* FAQ STYLING & ANIMATION */
+/* FAQ SECTION */
+.faq-section {
+    text-align: left !important; /* Paksa balik ke kiri */
+    padding: 60px 0;
+}
+.faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left !important;
+}
+.faq-item {
+    border-bottom: 1px solid #007bff;
+    margin-bottom: 10px;    /* Memberi jarak antar tiap kotak pertanyaan */
+}
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    text-align: left !important; /* Pastikan teks pertanyaan di kiri */
+    cursor: pointer;
+}
+.faq-answer {
+    max-height: 0; /* Tertutup secara default */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out; /* Animasi lembut */
+    color: #555;
+}
+.faq-answer p { padding-bottom: 20px; }
+
+/* Saat FAQ aktif */
+.faq-item.active .faq-answer {
+    max-height: 200px; /* Nilai bebas yang cukup besar */
+}
+.faq-item.active .plus { transform: rotate(45deg); color: red; }
+.plus { transition: 0.3s; font-size: 24px; }
+
+/* Container untuk ikon agar posisinya pas di tengah */
+.icon-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pengaturan Ikon FontAwesome */
+.value-icon-fa {
+    font-size: 50px;    /* Ukuran ikon */
+    color: #007bff;     /* Warna biru sesuai tema kamu */
+    transition: transform 0.3s ease;
+}
+
+/* Efek hover (Opsional): Ikon sedikit membesar saat diarahkan mouse */
+.value-card:hover .value-icon-fa {
+    transform: scale(1.1);
+}
+
+/* Pastikan subtitle tetap kuning */
+.yellow-subtitle {
+    color: #ffc107;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* HERO KONTAK */
+
+/* JAM OPERASIONAL */
+.opening-hours {
+    padding: 40px 0;
+    border-bottom: 1px solid #eee;
+}
+.hours-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #555;
+}
+.clock-icon { font-size: 30px; color: #007bff; }
+.day-item span { display: block; font-weight: bold; color: #333; }
+
+/* CONTACT FORM */
+.contact-form-section { padding: 60px 0; }
+.contact-form { max-width: 900px; margin: 0 auto; }
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
+    font-family: inherit;
+}
+.btn-yellow-wide {
+    background: #ffc107;
+    color: #333;
+    border: none;
+    padding: 15px 60px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-yellow-wide:hover { background: #e5ac00; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hours-flex { flex-direction: column; gap: 20px; text-align: center; }
+    .form-grid { grid-template-columns: 1fr; }
+   
+}
+
+/* BREAKPOINT UNTUK TABLET (Max-width: 992px) */
+@media (max-width: 992px) {
+    .container { width: 90%; }
+    
+    /* Tim & Layanan menjadi 2 kolom */
+    .unggulan-grid, .team-grid, .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Media Query untuk Handphone */
+@media (max-width: 768px) {
+    /* 1. Paksa isi navbar untuk menyebar ke ujung */
+    .header-content {
+        display: flex !important;
+        justify-content: space-between !important; /* Logo kiri, kontrol kanan */
+        align-items: center;
+        padding: 0 15px !important; /* Jarak aman dari pinggir layar */
+        width: 100%;
+    }
+
+    .footer-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px;
+        text-align: left !important; /* Ubah dari center ke left */
+        padding-left: 20px; /* Beri sedikit jarak dari pinggir layar */
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    /* Pastikan list di footer juga rapi */
+    .footer-grid ul {
+        padding: 0;
+        list-style: none;
+    }
+
+    /* Agar ikon sosial media tidak berantakan */
+    .social-icons {
+        justify-content: center;
+        display: flex;
+        gap: 15px;
+    }
+
+    /* 2. Perbesar dan posisikan logo */
+    .logo {
+        font-size: 1.4rem !important; /* Ukuran lebih besar di HP */
+        font-weight: 700;
+        margin: 0 !important; /* Hapus margin yang bikin dia ke tengah */
+        text-align: left !important;
+        flex: 1; /* Memberi ruang agar dia tetap di kiri */
+    }
+
+    /* 3. Pastikan grup tombol (telp & menu) tetap rapi di kanan */
+    .mobile-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Jarak antara ikon telp dan garis tiga */
+        justify-content: flex-end;
+    }
+
+    /* Kotak Hero (Teks) di HP agar tidak terlalu lebar */
+    .hero-text-box {
+        margin: 0 20px;
+        padding: 20px;
+        font-size: 12px;
+    }
+
+    /* Layanan Kami (6 Kotak) menjadi 1 kolom penuh */
+    .layanan-grid, .unggulan-grid, .team-grid, .values-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Grid Tentang Kami (Gambar & Teks) bertumpuk vertikal */
+    .grid-about, .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Jam Operasional di Kontak agar rapi */
+    .hours-flex {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    /* Form Kontak menjadi satu kolom */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .captcha-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    
+
+}
+
+/* Sembunyikan tombol mobile secara default (Tampilan Desktop) */
+.mobile-controls {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+    .our-values {
+        padding: 1px 0 !important; /* Lebih rapat lagi untuk layar HP */
+    }
+    
+    .grid-about, .unggulan-grid {
+        gap: 15px !important; /* Kurangi jarak antar kotak/grid */
+    }
+
+    /* Pastikan tombol pelajari lebih lanjut mepet tengah di HP */
+    .btn-yellow {
+        display: table !important; /* Trick agar margin auto bekerja sempurna pada inline-block */
+        margin: 40px auto !important;
+    }
+}
+
+    /* Gaya Garis Tiga */
+    .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 100000;
+    transition: 0.3s;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 4px 0;
+    transition: 0.4s; /* Penting untuk animasi */
+}
+
+    /* Sembunyikan Menu List di HP sebelum diklik */
+    .nav-menu {
+        position: fixed;
+        right: -100%; /* Sembunyi di kanan */
+        top: 60px;
+        width: 100%;
+        height: 100vh;
+        background-color: #007bff;
+        display: flex;
+        flex-direction: column;
+        padding-top: 40px; /* TAMBAHAN: Biar menu ngga nabrak atas */
+        align-items: center; /* TAMBAHAN: Biar text menu di tengah */
+        transition: 0.4s;
+        z-index: 999;
+    }
+    
+    /* TAMBAHAN: Jarak antar menu di mobile */
+    .nav-menu {
+        position: fixed;
+        right: -100%;
+        top: 0; /* Ubah jadi 0 agar menutupi dari atas */
+        width: 100%;
+        height: 100vh;
+        background-color: #007bff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Menu di tengah layar */
+        align-items: center;
+        transition: 0.4s;
+        z-index: 99999; /* NAIKKAN JADI SANGAT TINGGI */
+    }
+
+    .nav-menu.active {
+        right: 0; /* Muncul saat diklik */
+    }
+
+    /* TAMBAHAN: Animasi garis 3 jadi X saat aktif (diklik) */
+    .menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0; /* Garis tengah hilang */
+}
+
+.menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+}
